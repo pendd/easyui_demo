@@ -1,0 +1,37 @@
+# springboot2.0 以后  application.yml文件中识别不到datasource的配置      用application.properties就ok
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://47.98.221.77:3306/upton
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+    name: easydb
+  resources:
+    static-locations: classpath:/resources,classpath:/static
+
+
+
+mybatis-plus:
+  mapperLocations: classpath:mapper/*.xml
+  type-aliases-package: com.hvision.domain
+  global-config:
+    id-type: 0 #AUTO->`0`("数据库ID自增") INPUT->`1`(用户输入ID") ID_WORKER->`2`("全局唯一ID") UUID->`3`("全局唯一ID")
+    field-strategy: 2
+    auto-set-db-type: true
+    db-column-underline: true
+    refresh-mapper: true
+    configuration:
+      map-underscore-to-camel-case: true
+      cache-enabled: false
+
+logging:
+  pattern:
+    console: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(${PID:- }){magenta} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:%-4.4L){faint} %m%n'
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39}-%L : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}'
+  file: mes.log
+  level:
+    com.hvisions.mes: DEBUG
+    druid.sql.Statement: DEBUG
+    druid.sql.ResultSet: DEBUG
+    org.springframework.boot: INFO

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hvision.mapper.UserMapper" >
+
+    <!-- 查询所有用户信息 -->
+    <select id="selectAllUser" resultType="User">
+        select
+            id,
+            username,
+            password,
+            createtime as createTime
+        from user
+    </select>
+
+    <!-- 添加用户信息 -->
+    <insert id="addUser" parameterType="User">
+        insert into user
+        (
+            username,
+            password,
+            createtime
+        )
+        values
+        (
+            #{username},
+            #{password},
+            #{createTime}
+        )
+    </insert>
+
+    <!-- 修改用户信息 -->
+    <update id="updateUser" parameterType="User">
+        update user
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="createTime != null">
+                createtime = #{createTime}
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <!-- 删除用户信息 -->
+    <delete id="deleteUserById" parameterType="int">
+        delete from user
+        where id = #{id}
+    </delete>
+</mapper>
